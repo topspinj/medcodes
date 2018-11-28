@@ -16,5 +16,11 @@ atc_level_one = {
     'V': 'various'
 }
 
-def atc_levels():
-    pass
+def atc_info(atc_id, level=1):
+    """Gets information for a given ATC id."""
+    info = None
+    if level == 1:
+        category = atc_id.upper()[0]
+        if category in atc_level_one.values():
+            info = atc_level_one[category]
+    return info
