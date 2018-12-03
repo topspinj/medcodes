@@ -1,6 +1,6 @@
 from _mappers import charlson_matches_codes, charlson_startswith_codes
 
-def charlson_comorbidities(icd_code, icd_version='9'):
+def charlson_comorbidities(icd_code, icd_version=9):
     """
     Outputs Charlson comorbidity for a given ICD code.
 
@@ -9,7 +9,7 @@ def charlson_comorbidities(icd_code, icd_version='9'):
     code : str
         ICD code
     icd_version : str
-        Can be either '9' or '10'
+        Can be either 9 or 10
 
     Returns
     -------
@@ -35,3 +35,20 @@ def charlson_comorbidities(icd_code, icd_version='9'):
             if icd_code.startswith(tuple(val)):
                 comorbidity = k
     return comorbidity
+
+def elixhauser_comorbidities(icd_code, icd_version=9):
+    """
+    Outputs Elixhauser comorbidity for a given ICD code.
+
+    Parameters
+    ----------
+    code : str
+        ICD code
+    icd_version : str
+        Can be either 9 or 10
+    
+    Returns
+    -------
+    Elixhauser comorbidity
+    """
+    pass
