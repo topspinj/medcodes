@@ -1,4 +1,4 @@
-from _mappers import charlson_matches_codes, charlson_startswith_codes
+from _mappers import charlson_matches_codes, charlson_startswith_codes, elixhauser_matches_codes, elixhauser_startswith_codes
 
 def charlson_comorbidities(icd_code, icd_version=9):
     """
@@ -51,4 +51,18 @@ def elixhauser_comorbidities(icd_code, icd_version=9):
     -------
     Elixhauser comorbidity
     """
-    pass
+    if not isinstance(icd_code, str):
+        raise TypeError("ICD code must be a string.")
+
+    icd_code = icd_code.replace(".", "")
+    icd_code = icd_code.strip()
+
+    comorbidity = None
+    for k, val in elixhauser_matches_codes.items():
+        if icd_code in val:
+            comorbidity = k
+    if comorbidity is None:
+        for k, val in elixhauser_startswith_codes.items():
+            if icd_code.startswith(tuple(val)):
+                comorbidity = k
+    return comorbidity
