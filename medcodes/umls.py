@@ -22,7 +22,7 @@ class Authentication:
     
     def getst(self,tgt):
         params = {'service': self.service}
-        h = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain", "User-Agent":"python" }
+        h = {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'text/plain', 'User-Agent':'python' }
         r = requests.post(tgt,data=params,headers=h)
         st = r.text
         return st

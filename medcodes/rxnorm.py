@@ -6,7 +6,6 @@ sys.path.append("..")
 warnings.simplefilter(action='ignore', category=UserWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-import argparse
 import json
 import requests
 import pandas as pd
