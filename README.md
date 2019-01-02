@@ -34,6 +34,8 @@ An example of an ATC code is `C03CA01` and can be broken down into its 5 levels 
 
 MeSH terms are typically used in the context of indexing and retrieval of literature. Unlike ATC's 5-level classification system, MeSH has two parallel classifications: chemical structure, and functional properties ([2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/)). 
 
+<img src="drug_classification_example.png"/>
+
 ## Comorbidities
 
 `International Statistical Classification of Diseases`, also known as ICD, is a classification system used for patient diagnosis. ICD-9 contains 13,000 codes, while ICD-10 has 68,000 codes. At the end of a patient's hospital stay, a list of ICD codes are assigned to that particular hospital admission, which ultimately gets used for reimbursement purposes.  
