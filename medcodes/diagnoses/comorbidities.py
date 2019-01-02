@@ -98,12 +98,11 @@ def elixhauser_comorbidities(icd_code, icd_version=9):
     icd_code = icd_code.replace(".", "")
     icd_code = icd_code.strip()
 
-    comorbidity = None
+    comorbidity = []
     for k, val in elixhauser_matches_codes.items():
         if icd_code in val:
-            comorbidity = k
-    if comorbidity is None:
-        for k, val in elixhauser_startswith_codes.items():
-            if icd_code.startswith(tuple(val)):
-                comorbidity = k
+            comorbidity.append(k)
+    for k, val in elixhauser_startswith_codes.items():
+        if icd_code.startswith(tuple(val)):
+            comorbidity.append(k)
     return comorbidity
