@@ -1,17 +1,8 @@
-import os
-import sys
-import warnings
-sys.path.insert(0, os.path.abspath("utils/"))
-sys.path.append("..")
-warnings.simplefilter(action='ignore', category=UserWarning)
-warnings.simplefilter(action='ignore', category=FutureWarning)
-
 import json
 import requests
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
-from utils.preprocessing import clean_drug_name
 pd.options.mode.chained_assignment = None 
 
 
