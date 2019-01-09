@@ -1,4 +1,4 @@
-from _mappers import charlson_matches_codes, charlson_startswith_codes, elixhauser_matches_codes, elixhauser_startswith_codes
+from _comorbidity_mappers import charlson_matches_codes, charlson_startswith_codes, elixhauser_matches_codes, elixhauser_startswith_codes
 
 def comorbidities(icd_code, classification='charlson', icd_version=9):
     """
@@ -41,7 +41,7 @@ def comorbidities(icd_code, classification='charlson', icd_version=9):
                 comorbidity = k
     return comorbidity
 
-def charlson_comorbidities(icd_code, icd_version=9):
+def charlson(icd_code, icd_version=9):
     """
     Outputs Charlson comorbidity for a given ICD code.
 
@@ -77,7 +77,7 @@ def charlson_comorbidities(icd_code, icd_version=9):
                 comorbidity = k
     return comorbidity
 
-def elixhauser_comorbidities(icd_code, icd_version=9):
+def elixhauser(icd_code, icd_version=9):
     """
     Outputs Elixhauser comorbidity for a given ICD code.
 
