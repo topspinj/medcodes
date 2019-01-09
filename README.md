@@ -57,7 +57,7 @@ Output:
 
 ##### 2. Medical Subject Headings (MeSH) classification
 
-MeSH terms are typically used in the context of indexing and retrieval of literature. Unlike ATC's 5-level classification system, MeSH has two parallel classifications: chemical structure and functional properties ([2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/)). 
+MeSH terms are typically used in the context of indexing and retrieval of literature. Unlike ATC's 5-level classification system, MeSH has several parallel classifications: chemical structure, mechanism of action, and therapeutic use ([2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/)). 
 
 <img src="imgs/drug_classification_example.png"/>
 
@@ -71,9 +71,19 @@ Outputs:
 
 |mesh_term|mesh_type|
 |---------|---------|
-|cyclooxygenase inhibitors|structural|
-|anti-inflammatory agents|functional|
-|analgesic|functional|
+|cyclooxygenase inhibitors|mechanism of action|
+|anti-inflammatory agents|therapeutic use|
+|analgesic|therapeutic use|
+
+## Drug Information
+
+WIP. 
+
+- To-do: investigate whether it's possible to extract the following information for a given drug:
+	- patent info
+	- side effects
+	- studies involving said drug
+
 
 ## Comorbidities
 
