@@ -35,7 +35,7 @@ An example of an ATC code is `C03CA01` and can be broken down into its 5 levels 
 
 MedCodes provides functionality to interpret a given ATC code.
 
-<img src="medcodes_example.png"/>
+<img src="imgs/medcodes_example.png"/>
 
 Example of how it works:
 
@@ -59,7 +59,7 @@ Output:
 
 MeSH terms are typically used in the context of indexing and retrieval of literature. Unlike ATC's 5-level classification system, MeSH has two parallel classifications: chemical structure and functional properties ([2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/)). 
 
-<img src="drug_classification_example.png"/>
+<img src="imgs/drug_classification_example.png"/>
 
 ## Comorbidities
 
