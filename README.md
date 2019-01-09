@@ -45,7 +45,7 @@ get_atc_info('M01AE01')
 
 Output:
 
-|ATC level|Code|Description|
+|atc_level|code|description|
 |---------|----|-----------|
 |1|M|MUSCOLOSKELETAL SYSTEM|
 |2|M01|ANTIINFLAMMATORY AND ANTIRHEUMATIC PRODUCTS|
@@ -60,6 +60,20 @@ Output:
 MeSH terms are typically used in the context of indexing and retrieval of literature. Unlike ATC's 5-level classification system, MeSH has two parallel classifications: chemical structure and functional properties ([2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/)). 
 
 <img src="imgs/drug_classification_example.png"/>
+
+Example of how MedCodes works:
+
+```
+get_mesh_info('ibuprofen')
+```
+
+Outputs:
+
+|mesh_term|mesh_type|
+|---------|---------|
+|cyclooxygenase inhibitors|structural|
+|anti-inflammatory agents|functional|
+|analgesic|functional|
 
 ## Comorbidities
 
@@ -83,7 +97,21 @@ An example of a Charlson/Elixhauser comorbidty is `congestive heart failure`, wh
 - **428.4:** Combined systolic and diastolic heart failure
 - **428.9:** Heart failure, unspecified
 
-These comorbidity summaries are useful in the context of machine learning, in which each comorbidity can represents a separate feature in the machine learning model. 
+These comorbidity mappings are able to cluster ICD codes into well-defined categories. This reduces the dimensionality of our clinical dataset, which makes it significantly easier for machine learning models. 
+
+Example of how it works:
+
+```
+from medcodes.diagnoses import comorbidities
+comorbidities(icd_code=['4280','4284'], mapping='elixhauser')
+```
+
+Outputs:
+
+|icd_code|description|elixhauser|
+|----|----|-----|
+|4280|Congestive heart failure, unspecified|congestive heart failure|
+|4284|Combined systolic and diastolic heart failure|congestive heart failure|
 
 ### References
 
