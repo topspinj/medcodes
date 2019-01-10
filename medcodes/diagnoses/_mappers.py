@@ -1,4 +1,4 @@
-charlson_matches_codes = {
+charlson_matches_codes_v9 = {
     'congestive heart failure': ['39891','40201','40211','40291','40401','40403','40411','40413','40491','40493','4254','4255','4256','4257','4258','4259'],
     'peripheral vascular disease': ['4431', '4432', '4433', '4434', '4435', '4436', '4437', '4438', '4439', '0930', '4373', '4471', '5571', '5579', 'V434'],
     'cerebrovascular disease': ['36234'],
@@ -14,7 +14,7 @@ charlson_matches_codes = {
     'moderate or severe liver disease': ['4560','4561','4562','5722','5723','5724','5725','5726','5727','5728']
 }
 
-charlson_startswith_codes = {
+charlson_startswith_codes_v9 = {
     'myocardial infarction': ['410', '412'],
     'congestive heart failure': ['428'],
     'peripheral vascular disease': ['440', '441'],
@@ -31,7 +31,7 @@ charlson_startswith_codes = {
     'AIDS/HIV': ['042','043','044']
 }
 
-elixhauser_matches_codes = {
+elixhauser_matches_codes_v9 = {
     'congestive heart failure': ['39891','40201','40211','40291','40401','40403','40411','40413','40491','40493','4254','4255','4256','4257','4258','4259'],
     'cardiac arrhythmias': ['4260','42613','4267','4269','42610','42612','4270','4271','4272','4273','4274','4276','4277','4278','4279','7850','99601','99604','V450','V533'],
     'valvular disease': ['0932','7463','7464','7465','7466','V422','V433'],
@@ -60,7 +60,7 @@ elixhauser_matches_codes = {
     'depression': ['2962','2963','2965','3004','311']
     }
 
-elixhauser_startswith_codes = {
+elixhauser_startswith_codes_v9 = {
     'congestive heart failure': ['428'],
     'valvular disease': ['394', '395', '396', '397','424'],
     'pulmonary circulation disorders': ['416'],
