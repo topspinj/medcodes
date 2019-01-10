@@ -27,20 +27,19 @@ def charlson(icd_code, icd_version=9, verbose=True):
     icd_code = icd_code.replace(".", "")
     icd_code = icd_code.strip()
 
-    comorbidity = None
+    comorbidity = []
     for k, val in charlson_matches_codes_v9.items():
         if icd_code in val:
-            comorbidity = k
-    if comorbidity is None:
-        for k, val in charlson_startswith_codes_v9.items():
-            if icd_code.startswith(tuple(val)):
-                comorbidity = k
+            comorbidity.append(k)
+    for k, val in charlson_startswith_codes_v9.items():
+        if icd_code.startswith(tuple(val)):
+            comorbidity.append(k)
     if verbose:
-        if comorbidity is None:
-            print(f"No comorbidities available for ICD {icd_code}")
+        if not comorbidity:
+            print(f"No Charlson comorbidities available for ICD {icd_code}")
     return comorbidity
 
-def elixhauser(icd_code, icd_version=9):
+def elixhauser(icd_code, icd_version=9, verbose=True):
     """
     Outputs Elixhauser comorbidity for a given ICD code.
 
@@ -68,4 +67,7 @@ def elixhauser(icd_code, icd_version=9):
     for k, val in elixhauser_startswith_codes_v9.items():
         if icd_code.startswith(tuple(val)):
             comorbidity.append(k)
+    if verbose:
+        if not comorbidity:
+            print(f"No Elixhauser comorbidities available for ICD {icd_code}")
     return comorbidity
