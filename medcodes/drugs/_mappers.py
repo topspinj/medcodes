@@ -1,3 +1,7 @@
+from _lv3 import atc_lv3
+from _lv4 import atc_lv4
+from _lv5 import atc_lv5
+
 atc_lv1 = {
     "A": "alimentary tract and metabolism",
     "B": "blood and blood forming organs",
@@ -91,7 +95,3 @@ atc_lv2 = {
     "V09": "diagnostic radiopharmaceuticals",
     "V10": "therapeutic radiopharmaceuticals"
 }
-
-
-
-# source = http://ec.europa.eu/health/documents/community-register/html/atc.htm
