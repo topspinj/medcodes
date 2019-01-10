@@ -1,12 +1,10 @@
-import os
-import sys
+"""
+Unit tests for atc_classification()
+===================================
+"""
 
-import pandas as pd
 import pytest
-
-sys.path.insert(0, os.path.abspath("."))
-sys.path.insert(0, os.path.abspath("../"))
-
+import pandas as pd
 from medcodes import atc_classification
 
 def test_df_output():
