@@ -1,6 +1,6 @@
-from _lv3 import atc_lv3
-from _lv4 import atc_lv4
-from _lv5 import atc_lv5
+from medcodes.drugs._lv3 import atc_lv3
+from medcodes.drugs._lv4 import atc_lv4
+from medcodes.drugs._lv5 import atc_lv5
 
 atc_lv1 = {
     "A": "alimentary tract and metabolism",

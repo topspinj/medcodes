@@ -1,6 +1,6 @@
 import pandas as pd
 
-from _mappers import atc_lv1, atc_lv2, atc_lv3, atc_lv4, atc_lv5
+from medcodes.drugs._mappers import atc_lv1, atc_lv2, atc_lv3, atc_lv4, atc_lv5
 
 def atc_classification(atc_code):
     """Gets information for a given ATC id."""
@@ -12,10 +12,10 @@ def atc_classification(atc_code):
     if len(atc_code) != 7:
         raise ValueError("ATC code must be a string of 7 characters.")
     lv1_code = atc_code[0]
-    lv2_code = ''.join(atc_code[0:2])
+    lv2_code = ''.join(atc_code[0:3])
     lv3_code = ''.join(atc_code[0:4])
     lv4_code = ''.join(atc_code[0:5])
-    lv5_code = atc_code
+    lv5_code = ''.join(atc_code)
     codes = [lv1_code, lv2_code, lv3_code, lv4_code, lv5_code]
 
     lv1_desc = atc_lv1[lv1_code]

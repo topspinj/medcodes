@@ -1,4 +1,4 @@
-from _mappers import charlson_matches_codes, charlson_startswith_codes, elixhauser_matches_codes, elixhauser_startswith_codes
+from medcodes.diagnoses._mappers import charlson_matches_codes, charlson_startswith_codes, elixhauser_matches_codes, elixhauser_startswith_codes
 
 def comorbidities(icd_code, classification='charlson', icd_version=9):
     """
