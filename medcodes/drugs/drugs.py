@@ -1,4 +1,4 @@
-from _drug_mappers import atc_level_one
+from _mappers import atc_level_one
  
 def atc_classification(atc_id, level=1):
     """Gets information for a given ATC id."""
