@@ -87,3 +87,96 @@ elixhauser_startswith_codes_v9 = {
     'psychoses': ['295','297','298'],
     'depression': ['309']
     }
+
+
+charlson_matches_codes_v10 = {
+    'myocardial infarction': ['I252'],
+    'congestive heart failure': ['I099','I110','I132','I255','I420','I425','I426','I427','I428','I429','P290'],
+    'peripheral vascular disease': ['I731','I738','I739','I771','I790','I792','K551','K558','K559','Z958','Z959'],
+    'cerebrovascular disease': ['H340'],
+    'dementia': ['F051','G311'],
+    'chronic pulmonary disease': ['I278','I279','J684','J701','J703'], 
+    'rheumatic disease': ['M315','M351','M353','M360'],
+    'mild liver disease': ['K700','K701','K702','K703','K709','K713','K714','K715','K717','K760','K762','K763','K764','K768','K769','Z944'],
+    'diabetes without chronic complication': ['E100', 'E101', 'E106', 'E108', 'E109', 'E110', 'E111', 'E116', 'E118', 'E119', 'E120', 'E121', 'E126', 'E128', 'E129', 'E130', 'E131', 'E136', 'E138', 'E139', 'E140', 'E141', 'E146', 'E148', 'E149'],
+    'diabetes with chronic complication': ['E102','E103','E104','E105','E107','E112','E113','E114','E115','E117','E122','E123','E124','E125','E127','E132','E133','E134','E135','E137','E142','E143','E144','E145','E147'],
+    'hemiplegia or paraplegia': ['G041','G114','G801','G802','G830','G831','G832','G833','G834','G839'],
+    'renal disease': ['I120','I131','N032','N033','N034','N035','N036','N037','N052','N053','N054','N055','N056','N057','N250','Z490','Z491','Z492','Z940','Z992'],
+    'moderate or severe liver disease': ['I850','I859','I864','I982','K704','K711','K721','K729','K765','K766','K767']
+}
+
+charlson_startswith_codes_v10 = {
+    'myocardial infarction': ['I21','I22'],
+    'congestive heart failure': ['I50','I43'],
+    'peripheral vascular disease': ['I70','I71'],
+    'cerebrovascular disease': ['G45','G46','I60','I61','I62','I63','I64','I65','I66','I67','I68','I69'],
+    'dementia': ['F00','F01','F02','F03','G30'],
+    'chronic pulmonary disease': ['J40','J41','J42','J43','J44','J45','J46','J47','J60','J61','J62','J63','J64','J65','J66','J67'],
+    'rheumatic disease': ['M05','M06','M32','M33','M34'],
+    'peptic ulcer disease': ['K25','K26','K27','K28'],
+    'mild liver disease': ['B18','K73','K74'],
+    'hemiplegia or paraplegia': ['G81','G82'],
+    'renal disease': ['N18','N19'],
+    'malignancy': ['C00','C01','C02','C03','C04','C05','C06','C07','C08','C09','C43','C88']+['C'+str(n) for n in range(10,27)]+['C'+str(n) for n in range(30,35)]+['C'+str(n) for n in range(37,42)]+['C'+str(n) for n in range(45,59)]+['C'+str(n) for n in range(60,77)]+['C'+str(n) for n in range(81,86)]+['C'+str(n) for n in range(90,98)],
+    'metastatic solid tumor': ['C77','C78','C79','C80'],
+    'AIDS/HIV': ['B20','B21','B22','B24']
+}
+
+
+elixhauser_matches_codes_v10 = {
+    'congestive heart failure': [],
+    'cardiac arrhythmias': [],
+    'valvular disease': [],
+    'pulmonary circulation disorders': [],
+    'peripheral vascular disorders': [],
+    'paralysis': [],
+    'other neurological disorders': [],
+    'chronic pulmonary disease': [],
+    'diabetes, uncomplicated': [],
+    'diabetes, complicated': [],
+    'hypothyroidism': [],
+    'renal failure': [],
+    'liver disease': [],
+    'peptic ulcer diease excluding bleeding': [],
+    'lymphoma': [],
+    'rheumatoid arthritis': [],
+    'coagulopathy': [],
+    'obesity': [],
+    'weight loss': [],
+    'fluid and electrolyte disorders': [],
+    'blood loss anemia': [],
+    'deficiency anemia': [],
+    'alcohol abuse': [],
+    'drug abuse': [],
+    'psychoses': [],
+    'depression': []
+    }
+
+elixhauser_startswith_codes_v10 = {
+    'congestive heart failure': [],
+    'cardiac arrhythmias': [],
+    'valvular disease': [],
+    'pulmonary circulation disorders': [],
+    'peripheral vascular disorders': [],
+    'paralysis': [],
+    'other neurological disorders': [],
+    'chronic pulmonary disease': [],
+    'diabetes, uncomplicated': [],
+    'diabetes, complicated': [],
+    'hypothyroidism': [],
+    'renal failure': [],
+    'liver disease': [],
+    'peptic ulcer diease excluding bleeding': [],
+    'lymphoma': [],
+    'rheumatoid arthritis': [],
+    'coagulopathy': [],
+    'obesity': [],
+    'weight loss': [],
+    'fluid and electrolyte disorders': [],
+    'blood loss anemia': [],
+    'deficiency anemia': [],
+    'alcohol abuse': [],
+    'drug abuse': [],
+    'psychoses': [],
+    'depression': []
+    }
