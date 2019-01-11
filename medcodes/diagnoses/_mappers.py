@@ -1,3 +1,15 @@
+"""
+ICD-Comorbidity Mappers
+================
+"""
+
+def icd_list(first_code, last_code, letter=None):
+    icd_list = [str(n) for n in range(first_code,last_code)]
+    if letter:
+        icd_list = [letter+str(n) for n in range(first_code,last_code)]
+    return icd_list
+
+
 charlson_matches_codes_v9 = {
     'congestive heart failure': ['39891','40201','40211','40291','40401','40403','40411','40413','40491','40493','4254','4255','4256','4257','4258','4259'],
     'peripheral vascular disease': ['4431', '4432', '4433', '4434', '4435', '4436', '4437', '4438', '4439', '0930', '4373', '4471', '5571', '5579', 'V434'],
@@ -26,7 +38,7 @@ charlson_startswith_codes_v9 = {
     'mild liver disease': ['570', '571'],
     'hemiplegia': ['342', '343'],
     'renal disease': ['585','586','V56','582'],
-    'malignancy': [str(n) for n in range(140,173)]+[str(n) for n in range(174,195)]+[str(n) for n in range(200,209)],
+    'malignancy': icd_list(140,173)+icd_list(174,195)+icd_list(200,209),
     'metastatic solid tumor': ['196', '197', '198', '199'],
     'AIDS/HIV': ['042','043','044']
 }
@@ -69,14 +81,14 @@ elixhauser_startswith_codes_v9 = {
     'hypertension, complicated': ['402','403','404','405'],
     'paralysis': ['342','343'],
     'other neurological disorders': ['334','335','340','341','345'],
-    'chronic pulmonary disease': [str(n) for n in range(490,506)],
+    'chronic pulmonary disease': icd_list(490,506),
     'hypothyroidism': ['243','244'],
     'renal failure': ['585','586','V56','V451'],
     'liver disease': ['570','571'],
     'AIDS/HIV': ['042','043','044'],
     'lymphoma': ['200','201','202'],
     'metastatic cancer': ['196','197','198','199'],
-    'solid tumor metastasis': [str(n) for n in range(140,173)]+[str(n) for n in range(174,196)], 
+    'solid tumor metastasis': icd_list(140,173)+icd_list(174,196),
     'rheumatoid arthritis': ['446','714','720','725'],
     'coagulopathy': ['286'],
     'weight loss': ['260','261','262','263'],
@@ -117,16 +129,15 @@ charlson_startswith_codes_v10 = {
     'mild liver disease': ['B18','K73','K74'],
     'hemiplegia or paraplegia': ['G81','G82'],
     'renal disease': ['N18','N19'],
-    'malignancy': ['C00','C01','C02','C03','C04','C05','C06','C07','C08','C09','C43','C88']+['C'+str(n) for n in range(10,27)]+['C'+str(n) for n in range(30,35)]+['C'+str(n) for n in range(37,42)]+['C'+str(n) for n in range(45,59)]+['C'+str(n) for n in range(60,77)]+['C'+str(n) for n in range(81,86)]+['C'+str(n) for n in range(90,98)],
+    'malignancy': ['C00','C01','C02','C03','C04','C05','C06','C07','C08','C09','C43','C88']+icd_list(10,27,'C')+icd_list(30,35,'C')+icd_list(37,42,'C')+icd_list(45,59,'C')+icd_list(60,77,'C')+icd_list(81,86,'C')+icd_list(90,98,'C'),
     'metastatic solid tumor': ['C77','C78','C79','C80'],
     'AIDS/HIV': ['B20','B21','B22','B24']
 }
 
-
 elixhauser_matches_codes_v10 = {
-    'congestive heart failure': [],
-    'cardiac arrhythmias': [],
-    'valvular disease': [],
+    'congestive heart failure': ['I099','I110','I130','I132','I255','I420','I425','I426','I427','I428','I429','P290'],
+    'cardiac arrhythmias': ['I441','I442','I443','I456','I459','R000','R001','R008','T821','Z450','Z950'],
+    'valvular disease': ['A520','I091','I098','Q230','Q231','Q232','Q233','Z952','Z953','Z954'],
     'pulmonary circulation disorders': [],
     'peripheral vascular disorders': [],
     'paralysis': [],
@@ -153,11 +164,13 @@ elixhauser_matches_codes_v10 = {
     }
 
 elixhauser_startswith_codes_v10 = {
-    'congestive heart failure': [],
-    'cardiac arrhythmias': [],
-    'valvular disease': [],
-    'pulmonary circulation disorders': [],
-    'peripheral vascular disorders': [],
+    'congestive heart failure': ['I43','I50'],
+    'cardiac arrhythmias': ['I47','I48','I49'],
+    'valvular disease': ['I05','I06','I07','I08','I34','I35','I36','I37','I38','I39'],
+    'pulmonary circulation disorders': ['I26','I27'],
+    'peripheral vascular disorders': ['I70','I71'],
+    'hypertension, uncomplicated': [],
+    'hypertension, complicated': [],
     'paralysis': [],
     'other neurological disorders': [],
     'chronic pulmonary disease': [],
