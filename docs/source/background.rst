@@ -1,12 +1,15 @@
 Drugs
 =====
 
-Drug Standardization
---------------------
+Standardization
+---------------
+- most drugs have two names: a generic name, and brand name
+    - e.g., Warfarin and Coumadin
+- NDC
+- RxCUI
 
-
-Drug Classification
--------------------
+Classification
+--------------
 
 Drugs can be categorized based on attributes such as mechanism of action, chemical structure, function, and metabolic properties. `RxNorm <https://www.nlm.nih.gov/research/umls/rxnorm//>`_ is one component of the Unified Medical Language System (UMLS) that standardizes clinical drug names into a unique identifier and provides capabilities to extract meaningful information for a given drug such as Anatomical Therapeutic Chemical (ATC) classification and MeSH terms. 
 
@@ -91,8 +94,8 @@ Outputs:
 |analgesic                  |therapeutic use    |
 +---------------------------+-------------------+
 
-Drug Information
-----------------
+Extracting Additional Information
+---------------------------------
 WIP. 
 
 - To-do: investigate whether it's possible to extract the following information for a given drug:

@@ -13,7 +13,8 @@ def charlson(icd_code, icd_version=9, verbose=True):
 
     Returns
     -------
-    Charlson comorbidity
+    list
+        Charlson comorbidities
 
     References
     ----------
@@ -63,7 +64,8 @@ def elixhauser(icd_code, icd_version=9, verbose=True):
     
     Returns
     -------
-    Elixhauser comorbidity
+    list
+        Elixhauser comorbidities
 
     References
     ----------
