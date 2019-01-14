@@ -6,6 +6,13 @@
 Welcome to MedCodes's documentation!
 ====================================
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Backgroud:
+
+   background.rst
+
 .. toctree::
    :maxdepth: 2
    :caption: Developer Documentation:

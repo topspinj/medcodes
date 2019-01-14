@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Drug Classification &mdash; MedCodes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Drugs" href="code.html" />
+    <link rel="prev" title="Welcome to MedCodes’s documentation!" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> MedCodes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Backgroud:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Drug Classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#anatomical-therapeutic-chemical-atc-classification">1. Anatomical Therapeutic Chemical (ATC) classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#medical-subject-headings-mesh-classification">2. Medical Subject Headings (MeSH) classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drug-information">Drug Information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#comorbidities">Comorbidities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Drugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html#diagnoses">Diagnoses</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MedCodes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Drug Classification</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/background.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="drug-classification">
+<h1>Drug Classification<a class="headerlink" href="#drug-classification" title="Permalink to this headline">¶</a></h1>
+<p>Drugs can be categorized based on attributes such as mechanism of action, chemical structure, function, and metabolic properties. [RxNorm](<a class="reference external" href="https://www.nlm.nih.gov/research/umls/rxnorm/">https://www.nlm.nih.gov/research/umls/rxnorm/</a>) is one component of the Unified Medical Language System (UMLS) that standardizes clinical drug names into a unique identifier and provides capabilities to extract meaningful information for a given drug such as Anatomical Therapeutic Chemical (ATC) classification and MeSH terms.</p>
+<div class="section" id="anatomical-therapeutic-chemical-atc-classification">
+<h2>1. Anatomical Therapeutic Chemical (ATC) classification<a class="headerlink" href="#anatomical-therapeutic-chemical-atc-classification" title="Permalink to this headline">¶</a></h2>
+<p>ATC divides the active substances of a drug into different groups accordingly to the organ or system on which they act and their therapeutic, pharmacological, and chemical properties ([1](<a class="reference external" href="https://www.who.int/medicines/regulation/medicines-safety/toolkit_atc/en/">https://www.who.int/medicines/regulation/medicines-safety/toolkit_atc/en/</a>)). Drugs are grouped at five different levels in which each level represents a different part of a 7 character ATC code. The first (most generic) level contains 14 anatomical/pharmacological groups that are represented by different letters:</p>
+<ul class="simple">
+<li><strong>A:</strong> alimentary tract and metabolism</li>
+<li><strong>B:</strong> blood and blood forming organs</li>
+<li><strong>C:</strong> cardiovascular system</li>
+<li><strong>D:</strong> dermatologicals</li>
+<li><strong>G:</strong> genito-urinary system and sex hormones</li>
+<li><strong>H:</strong> systemic hormonal preparations</li>
+<li><strong>J:</strong> anti-infectives for systemic use</li>
+<li><strong>L:</strong> anti-neoplastic and immunomodulating agents</li>
+<li><strong>M:</strong> musculo-skeletal system</li>
+<li><strong>N:</strong> nervous system</li>
+<li><strong>P:</strong> anti-parasitic products, insecticides, repellents</li>
+<li><strong>R:</strong> respiratory system</li>
+<li><strong>S:</strong> sensory organs</li>
+<li><strong>V:</strong> various</li>
+</ul>
+<p>An example of an ATC code is <cite>C03CA01</cite> and can be broken down into its 5 levels as follows:</p>
+<ul class="simple">
+<li>1st level: <cite>C</cite> - cardiovascular system</li>
+<li>2nd level: <cite>C03</cite> - diuretics</li>
+<li>3rd level: <cite>C03C</cite> - high-ceiling diuretics</li>
+<li>4th level: <cite>C03CA</cite> - sulfonamids</li>
+<li>5th level: <cite>C03CA01</cite> - furosemide</li>
+</ul>
+<p>MedCodes provides functionality to interpret a given ATC code.</p>
+<img alt="_images/medcodes_example.png" src="_images/medcodes_example.png" />
+<p>Example of how it works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_atc_info</span><span class="p">(</span><span class="s1">&#39;M01AE01&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="17%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">atc_level</th>
+<th class="head">code</th>
+<th class="head">description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>M</td>
+<td>MUSCOLOSKELETAL SYSTEM</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>M01</td>
+<td>ANTIINFLAMMATORY PRODUCTS</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>M01A</td>
+<td>NON-STEROIDS</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>M01AE</td>
+<td>PROPRIONIC ACID DERIVATIVES</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>M01AE01</td>
+<td>IBUPROFEN</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="medical-subject-headings-mesh-classification">
+<h2>2. Medical Subject Headings (MeSH) classification<a class="headerlink" href="#medical-subject-headings-mesh-classification" title="Permalink to this headline">¶</a></h2>
+<p>MeSH terms are typically used in the context of indexing and retrieval of literature. Unlike ATC’s 5-level classification system, MeSH has several parallel classifications: chemical structure, mechanism of action, and therapeutic use ([2](<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4120719/</a>)).</p>
+<img alt="_images/drug_classification_example.png" src="_images/drug_classification_example.png" />
+<p>Example of how MedCodes works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">get_mesh_info</span><span class="p">(</span><span class="s1">&#39;ibuprofen&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Outputs:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="59%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">mesh_term</th>
+<th class="head">mesh_type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>cyclooxygenase inhibitors</td>
+<td>mechanism of action</td>
+</tr>
+<tr class="row-odd"><td>anti-inflammatory agents</td>
+<td>therapeutic use</td>
+</tr>
+<tr class="row-even"><td>analgesic</td>
+<td>therapeutic use</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="drug-information">
+<h2>Drug Information<a class="headerlink" href="#drug-information" title="Permalink to this headline">¶</a></h2>
+<p>WIP.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>To-do: investigate whether it’s possible to extract the following information for a given drug:</dt>
+<dd><ul class="first last">
+<li>patent info</li>
+<li>side effects</li>
+<li>studies involving said drug</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="comorbidities">
+<h1>Comorbidities<a class="headerlink" href="#comorbidities" title="Permalink to this headline">¶</a></h1>
+<p><cite>International Statistical Classification of Diseases</cite>, also known as ICD, is a classification system used for patient diagnosis. ICD-9 contains 13,000 codes, while ICD-10 has 68,000 codes. At the end of a patient’s hospital stay, a list of ICD codes are assigned to that particular hospital admission, which ultimately gets used for reimbursement purposes.</p>
+<p>Comorbidity measures, such as the Charlson comorbidity index and Elixhauser score, are used to cluster the overwhelming number of ICD codes into a smaller subset of well-defined comorbidities. These tools have used in the context of clinical prognosis and comorbidity adjustment in epidemiological outcome studies ([3](<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/15528055">https://www.ncbi.nlm.nih.gov/pubmed/15528055</a>), [4](<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/21305268">https://www.ncbi.nlm.nih.gov/pubmed/21305268</a>), [5](<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/21509773">https://www.ncbi.nlm.nih.gov/pubmed/21509773</a>)). The Charlson comorbidity index covers 17 comorbidities, while the Elixhauser score covers 30. There are 6 overlapping comorbidities between Charlson and Elixhauser comorbidity mappings:</p>
+<ol class="arabic simple">
+<li>congestive heart failure</li>
+<li>peripheral vascular disease</li>
+<li>chronic pulmonary disease</li>
+<li>hemiplegia/paraplegia</li>
+<li>HIV/AIDS</li>
+<li>metastatic solid tumors</li>
+</ol>
+<p>An example of a Charlson/Elixhauser comorbidty is <cite>congestive heart failure</cite>, which covers the following ICD codes:</p>
+<ul class="simple">
+<li><strong>428.0:</strong> Congestive heart failure, unspecified</li>
+<li><strong>428.1:</strong> Left heart failure</li>
+<li><strong>428.2:</strong> Systolic heart failure</li>
+<li><strong>428.3:</strong> Diastolic heart failure</li>
+<li><strong>428.4:</strong> Combined systolic and diastolic heart failure</li>
+<li><strong>428.9:</strong> Heart failure, unspecified</li>
+</ul>
+<p>These comorbidity mappings are able to cluster ICD codes into well-defined categories. This reduces the dimensionality of our clinical dataset, which makes it significantly easier for machine learning models.</p>
+<p>Example of how it works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">medcodes.diagnoses</span> <span class="k">import</span> <span class="n">comorbidities</span>
+<span class="n">comorbidities</span><span class="p">(</span><span class="n">icd_code</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;4280&#39;</span><span class="p">,</span><span class="s1">&#39;4284&#39;</span><span class="p">],</span> <span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;elixhauser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Outputs:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="58%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">icd_code</th>
+<th class="head">description</th>
+<th class="head">elixhauser</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>4280</td>
+<td>Congestive heart failure, unspecified</td>
+<td>congestive heart failure</td>
+</tr>
+<tr class="row-odd"><td>4284</td>
+<td>Combined systolic and diastolic heart failure</td>
+<td>congestive heart failure</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>The World Health Organization. <a class="reference external" href="https://www.who.int/medicines/regulation/medicines-safety/toolkit_atc/en/">https://www.who.int/medicines/regulation/medicines-safety/toolkit_atc/en/</a></li>
+<li>Winnenburg R, Bodenreider O. A framework for assessing the consistency of drug classes across sources. J Biomed Semantics. 2014;5:30.</li>
+<li>Perkins AJ, Kroenke K, Unützer J, et al. Common comorbidity scales were similar in their ability to predict health care costs and mortality. J Clin Epidemiol. 2004;57(10):1040–1048. <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/15528055">https://www.ncbi.nlm.nih.gov/pubmed/15528055</a></li>
+<li>Lix LM, Quail J, Teare G, et al. Performance of comorbidity measures for predicting outcomes in population-based osteoporosis cohorts. Osteoporos Int. 2011;22(10):2633–2643 <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/21305268">https://www.ncbi.nlm.nih.gov/pubmed/21305268</a></li>
+<li>Lieffers JR, Baracos VE, Winget M, et al. A comparison of Charlson and Elixhauser comorbidity measures to predict colorectal cancer survival using administrative health data. Cancer. 2011;117(9):1957–1965. <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/21509773">https://www.ncbi.nlm.nih.gov/pubmed/21509773</a></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="code.html" class="btn btn-neutral float-right" title="Drugs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to MedCodes’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, BioSymetrics
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

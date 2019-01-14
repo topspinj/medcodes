@@ -24,12 +24,11 @@
 
   
 
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Welcome to MedCodes’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Drug Classification" href="background.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -78,7 +77,12 @@
               
             
             
-              <p class="caption"><span class="caption-text">Developer Documentation:</span></p>
+              <p class="caption"><span class="caption-text">Backgroud:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Drug Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html#comorbidities">Comorbidities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Drugs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#diagnoses">Diagnoses</a></li>
@@ -148,6 +152,26 @@
             
   <span class="target" id="module-medcodes.drugs"></span><div class="section" id="drugs">
 <h1>Drugs<a class="headerlink" href="#drugs" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="medcodes.drugs.atc_classification">
+<code class="descclassname">medcodes.drugs.</code><code class="descname">atc_classification</code><span class="sig-paren">(</span><em>atc_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medcodes/drugs/drugs.html#atc_classification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medcodes.drugs.atc_classification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets information for a given ATC id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>atc_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ATC code for a given drug</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<p>[1] <a class="reference external" href="https://www.whocc.no/atc_ddd_index/">https://www.whocc.no/atc_ddd_index/</a></p>
+</dd></dl>
+
 </div>
 <span class="target" id="module-medcodes.diagnoses"></span><div class="section" id="diagnoses">
 <h1>Diagnoses<a class="headerlink" href="#diagnoses" title="Permalink to this headline">¶</a></h1>
@@ -155,26 +179,52 @@
 <dt id="medcodes.diagnoses.elixhauser">
 <code class="descclassname">medcodes.diagnoses.</code><code class="descname">elixhauser</code><span class="sig-paren">(</span><em>icd_code</em>, <em>icd_version=9</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medcodes/diagnoses/comorbidities.html#elixhauser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medcodes.diagnoses.elixhauser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Outputs Elixhauser comorbidity for a given ICD code.</p>
-<dl class="docutils">
-<dt>code <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>ICD code</dd>
-<dt>icd_version <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Can be either 9 or 10</dd>
-</dl>
-<p>Elixhauser comorbidity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>code</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ICD code</li>
+<li><strong>icd_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Can be either 9 or 10</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Elixhauser comorbidity</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<p>[1] Quan H, Sundararajan V, Halfon P, et al. Coding algorithms for defining Comorbidities in ICD-9-CM
+and ICD-10 administrative data. Med Care. 2005 Nov; 43(11): 1130-9.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="medcodes.diagnoses.charlson">
 <code class="descclassname">medcodes.diagnoses.</code><code class="descname">charlson</code><span class="sig-paren">(</span><em>icd_code</em>, <em>icd_version=9</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/medcodes/diagnoses/comorbidities.html#charlson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#medcodes.diagnoses.charlson" title="Permalink to this definition">¶</a></dt>
 <dd><p>Outputs Charlson comorbidity for a given ICD code.</p>
-<dl class="docutils">
-<dt>code <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>ICD code</dd>
-<dt>icd_version <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Can be either 9 or 10</dd>
-</dl>
-<p>Charlson comorbidity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>code</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ICD code</li>
+<li><strong>icd_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Can be either 9 or 10</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Charlson comorbidity</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
 <p>[1] Quan H, Sundararajan V, Halfon P, et al. Coding algorithms for defining Comorbidities in ICD-9-CM
 and ICD-10 administrative data. Med Care. 2005 Nov; 43(11): 1130-9.</p>
 </dd></dl>
@@ -190,7 +240,7 @@ and ICD-10 administrative data. Med Care. 2005 Nov; 43(11): 1130-9.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to MedCodes’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="background.html" class="btn btn-neutral" title="Drug Classification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -199,7 +249,7 @@ and ICD-10 administrative data. Med Care. 2005 Nov; 43(11): 1130-9.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, BioSymetrics.
+        &copy; Copyright 2019, BioSymetrics
 
     </p>
   </div>
@@ -218,28 +268,18 @@ and ICD-10 administrative data. Med Care. 2005 Nov; 43(11): 1130-9.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
