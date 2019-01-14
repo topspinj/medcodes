@@ -5,7 +5,7 @@ Unit tests for atc_classification()
 
 import pytest
 from pandas import DataFrame
-from medcodes import atc_classification
+from medcodes.drugs import atc_classification
 
 def test_df_output():
     """
