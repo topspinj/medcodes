@@ -1,4 +1,4 @@
-atc_lv1 = {
+ATC_LV1 = {
     "A": "alimentary tract and metabolism",
     "B": "blood and blood forming organs",
     "C": "cardiovascular system",

@@ -4,7 +4,7 @@ Unit tests for atc_classification()
 """
 
 import pytest
-import pandas as pd
+from pandas import DataFrame
 from medcodes import atc_classification
 
 def test_df_output():
@@ -12,7 +12,7 @@ def test_df_output():
     Check that atc_classification()
     returns a pandas.DataFrame.
     """
-    assert(isinstance(atc_classification('V08AC08'), pd.DataFrame))
+    assert(isinstance(atc_classification('V08AC08'), DataFrame))
 
 def test_wrong_type_input_error():
     """

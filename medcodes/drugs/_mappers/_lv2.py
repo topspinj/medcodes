@@ -1,4 +1,4 @@
-atc_lv2 = {
+ATC_LV2 = {
     "A01": "stomatological preparations",
     "A02": "drugs for acid related disorders",
     "A03": "drugs for functional gastrointestinal disorders",
