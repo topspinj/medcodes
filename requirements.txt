@@ -2,4 +2,3 @@ pytest
 numpy
 pandas
 tqdm
-json
