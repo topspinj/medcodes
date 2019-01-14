@@ -59,7 +59,6 @@ def get_mesh_class_from_drug_name(drug_name):
         pass
     return list(set(rxclass_list))
 
-
 def get_atc_info_from_drug_name(drug_name):
     drug_name = drug_name.strip()
     drug_name = drug_name.replace(' ', '+')
