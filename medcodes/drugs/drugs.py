@@ -25,7 +25,8 @@ def atc_classification(atc_code):
     lv5_desc = ATC_LV5[lv5_code]
     descriptions = [lv1_desc, lv2_desc, lv3_desc, lv4_desc, lv5_desc]
 
-    atc_info = DataFrame({'level': [1,2,3,4,5],
-                        'code': codes,
-                        'description': descriptions})
+    atc_info = DataFrame({
+        'level': [1, 2, 3, 4, 5],
+        'code': codes,
+        'description': descriptions})
     return atc_info
