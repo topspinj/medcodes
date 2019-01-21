@@ -1,5 +1,7 @@
 # MedCodes
 
+[![CircleCI](https://circleci.com/gh/topspinj/medcodes.svg?style=svg&circle-token=15b881e69898a9326b263b848fabd0036b5eb6ae)](https://circleci.com/gh/topspinj/medcodes)
+
 MedCodes is a Python package that facilitates the standardization and interpretation of clinical data. 
 
 
