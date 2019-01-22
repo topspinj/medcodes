@@ -1,6 +1,6 @@
 from medcodes.diagnoses._mappers import CHARLSON_CODES_V9, CHARLSON_CODES_V10, ELIXHAUSER_CODES_V9, ELIXHAUSER_CODES_V10
 
-def charlson(icd_code, icd_version=9, verbose=True):
+def charlson(icd_code, icd_version=9):
     """
     Outputs Charlson comorbidity for a given ICD code.
 
@@ -44,14 +44,10 @@ def charlson(icd_code, icd_version=9, verbose=True):
     for k, val in icd_comorbidity_mapper.items():
         if icd_code.startswith(tuple(val)):
             comorbidity.append(k)
-    if verbose:
-        if not comorbidity:
-            print(f"No Charlson comorbidities available for ICD {icd_code}")
-        else:
-            print(f"Comorbidities for ICD {icd_code}: {comorbidity}")
+
     return comorbidity
 
-def elixhauser(icd_code, icd_version=9, verbose=True):
+def elixhauser(icd_code, icd_version=9):
     """
     Outputs Elixhauser comorbidity for a given ICD code.
 
@@ -95,7 +91,4 @@ def elixhauser(icd_code, icd_version=9, verbose=True):
     for k, val in icd_comorbidity_mapper.items():
         if icd_code.startswith(tuple(val)):
             comorbidity.append(k)
-    if verbose:
-        if not comorbidity:
-            print(f"No Charlson comorbidities available for ICD {icd_code}")
     return comorbidity
