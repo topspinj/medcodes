@@ -11,7 +11,10 @@ comorbidity mapping indices such as Elixhauser, Charlson, or a custom mapper.
 
 import pandas as pd
 
-from medcodes.diagnoses._mappers import comorbidity_mappers
+from medcodes.diagnoses._mappers import comorbidity_mappers, icd9cm, icd10
+
+icd9_codes = icd9cm.keys()
+icd10_codes = icd10.keys()
 
 def _check_icd_inputs(icd_code, icd_version):
     """Checks that icd_code input is the correct format."""
@@ -19,10 +22,10 @@ def _check_icd_inputs(icd_code, icd_version):
         raise ValueError("icd_version must be either 9 or 10. Default is set to 9.")
     if not isinstance(icd_code, str):
         raise TypeError("icd_code must be a string.")
-    if (icd_version==10 and len(icd_code)!=4):
-        raise ValueError("icd_code version 10 must be exactly 4 characters in length.")
-    if (icd_version==9 and len(icd_code)!=5):
-        raise ValueError("icd_code version 9 must be exactly 5 characters in length.") 
+    if (icd_version==10 and icd_code not in icd10_codes):
+        raise ValueError(f"{icd_code} is not a recognized ICD-10 code.")
+    if (icd_version==9 and icd_code not in icd9_codes):
+        raise ValueError(f"{icd_code} is not a recognized ICD-9CM code.")
 
 def _format_icd_code(icd_code):
     """Removes punctuation from icd_code string."""
@@ -177,6 +180,7 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
         raise ValueError("mappign must be one of 'elixhauser', 'charlson', 'custom'")
 
     all_comorbidities = []
+    descriptions = []
     for icd_code in icd_codes:
         c = None
         if mapping == 'custom':
@@ -186,8 +190,15 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
         if mapping == 'charlson':
             c = charlson(icd_code, icd_version)
         all_comorbidities.append(c)
-    
-    comorbidities_table = pd.DataFrame({'icd_code':icd_codes, f'{mapping.lower()}_comorbidity': all_comorbidities})
+        d = None
+        if icd_version == 9:
+            d = icd9cm[icd_code]
+        if icd_version == 10:
+            d = icd10[icd_code]
+        descriptions.append(d)
+    comorbidities_table = pd.DataFrame({'icd_code': icd_codes, 
+                                        'description': descriptions, 
+                                        f'{mapping.lower()}_comorbidity': all_comorbidities})
 
     return comorbidities_table
 

@@ -21,7 +21,7 @@ def test_charlson_output():
     assert(isinstance(output, list))
 
 def test_comorbidities_output():
-    icd_codes = ['33191', '33212', '78030']
+    icd_codes = ['3318', '82320', '33382']
     custom_map = {
         'stroke': ['33']
     }
@@ -29,7 +29,7 @@ def test_comorbidities_output():
     assert(isinstance(output, pd.DataFrame))
 
 def test_comorbidities_custom_map():
-    icd_codes = ['33191', '33212', '78030']
+    icd_codes = ['3318', '82320', '33382']
     custom_map = {
         'stroke': '33'
     }
