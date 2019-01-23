@@ -22,7 +22,7 @@ def _format_icd_code(icd_code):
 def _check_custom_map(custom_map):
     """Checks that vals of custom_map dict are dictionaries."""
     if not isinstance(custom_map, dict):
-        raise TypeError("custom_map must be a dictionary")
+        raise TypeError("custom_map must be a dictionary.")
     for k, val in custom_map.items():
         if not isinstance(val, list):
             raise TypeError(f'{k} values must be a list')
