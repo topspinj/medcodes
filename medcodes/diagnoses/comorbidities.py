@@ -112,6 +112,24 @@ def custom_comorbidities(icd_code, icd_version, custom_map):
     return comorbidities
 
 def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=None):
+    """
+    Parameters
+    ----------
+    icd_codes : list
+    icd_version : int
+    mapping : str
+    custom_map : dict
+
+    Returns
+    -------
+    pd.DataFrame
+    
+    References
+    ----------
+    [1] Quan H, Sundararajan V, Halfon P, et al. Coding algorithms for 
+    defining Comorbidities in ICD-9-CM and ICD-10 administrative data. 
+    Med Care. 2005 Nov; 43(11): 1130-9.
+    """
     if mapping not in ['elixhauser', 'charlson', 'custom']:
         raise ValueError("mappign must be one of 'elixhauser', 'charlson', 'custom'")
 
@@ -126,7 +144,7 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
             c = charlson(icd_code, icd_version)
         all_comorbidities.append(c)
     
-    comorbidities_table = pd.DataFrame(icd_codes, all_comorbidities, columns=['icd_code', f'{mapping.lower()}_comorbidity'])
+    comorbidities_table = pd.DataFrame({'icd_code':icd_codes, f'{mapping.lower()}_comorbidity': all_comorbidities})
 
     return comorbidities_table
 
