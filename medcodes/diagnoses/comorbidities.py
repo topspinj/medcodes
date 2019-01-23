@@ -1,3 +1,14 @@
+"""
+Comorbidtiies
+=============
+ICD (International Classification of Diseases) is a classification system that standardizes
+diagnoses into alphanumeric codes. There are two variants of ICD: 1) ICD-9, an earlier version
+which contains 13,000 codes, and 2) ICD-10, a more recent version with over 68,000 codes.
+
+The comorbidity functions in this module are used to cluster diagnoses into comorbidity groups using
+comorbidity mapping indices such as Elixhauser, Charlson, or a custom mapper.
+"""
+
 import pandas as pd
 
 from medcodes.diagnoses._mappers import comorbidity_mappers
@@ -29,7 +40,7 @@ def _check_custom_map(custom_map):
 
 def charlson(icd_code, icd_version=9):
     """
-    Outputs relevant Charlson comorbidities for a given ICD code.
+    Identifies relevant Charlson comorbidities for a ICD code of interest.
     Uses Charlson comorbidity index mappings as defined by Quan et al. [1].
 
     Parameters
@@ -64,15 +75,15 @@ def charlson(icd_code, icd_version=9):
 
 def elixhauser(icd_code, icd_version=9):
     """
-    Outputs relevant Elixhauser comorbidities for a given ICD code.
+    Identifies relevant Elixhauser comorbidities for a given ICD code.
     Uses Elixhauser comorbidity index mappings as defined by Quan et al. [1].
 
     Parameters
     ----------
     icd_code : str
-        ICD code
+        International Classification of Diseases (ICD) code
     icd_version : str
-        Can be either 9 or 10
+        Version of International Classification of Diseases (ICD). Can be either 9 or 10.
     
     Returns
     -------
@@ -100,6 +111,21 @@ def elixhauser(icd_code, icd_version=9):
 def custom_comorbidities(icd_code, icd_version, custom_map):
     """
     Applies custom mapping to ICD code.
+
+    Parameters
+    ----------
+    icd_code : str
+        I
+    icd_version : int
+    custom_map : dict
+        A customized mapper that defines one group of 
+        multiple groups of ICD codes.
+
+    Example
+    -------
+    >>> custom_map = {'stroke': ['33']}
+    >>> icd_code = '33010'
+    >>> custom_comorbidities(icd_code=icd_code, icd_version=9, custom_map=custom_map)
     """
     _check_icd_inputs(icd_code=icd_code, icd_version=icd_version)
     icd_code = _format_icd_code(icd_code=icd_code)
