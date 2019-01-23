@@ -55,6 +55,10 @@ def charlson(icd_code, icd_version=9):
     list
         Charlson comorbidities
 
+    Note
+    ----
+    This function supports ICD-9CM and ICD-10.
+
     References
     ----------
     [1] Quan H, Sundararajan V, Halfon P, et al. Coding algorithms for 
@@ -81,14 +85,18 @@ def elixhauser(icd_code, icd_version=9):
     Parameters
     ----------
     icd_code : str
-        International Classification of Diseases (ICD) code
+        ICD diagnosis code
     icd_version : str
-        Version of International Classification of Diseases (ICD). Can be either 9 or 10.
+        Version of ICD. Can be either 9 or 10.
     
     Returns
     -------
     list
         Elixhauser comorbidities
+
+    Note
+    ----
+    This function supports ICD-9CM and ICD-10.
 
     References
     ----------
@@ -115,11 +123,16 @@ def custom_comorbidities(icd_code, icd_version, custom_map):
     Parameters
     ----------
     icd_code : str
-        I
+        International Classification of Diseases (ICD) code
     icd_version : int
+        Version of ICD. Can be either 9 or 10.
     custom_map : dict
         A customized mapper that defines one group of 
         multiple groups of ICD codes.
+
+    Note
+    ----
+    This function supports ICD-9CM and ICD-10.
 
     Example
     -------
@@ -150,6 +163,10 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
     -------
     pd.DataFrame
     
+    Note
+    ----
+    This function supports ICD-9CM and ICD-10.
+
     References
     ----------
     [1] Quan H, Sundararajan V, Halfon P, et al. Coding algorithms for 
