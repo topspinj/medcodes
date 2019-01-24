@@ -9,9 +9,15 @@ Welcome to MedCodes's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Backgroud:
+   :caption: Background:
 
    background.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Getting Started:
+
+   notebooks/medcodes_walkthrough.ipynb
 
 .. toctree::
    :maxdepth: 2
