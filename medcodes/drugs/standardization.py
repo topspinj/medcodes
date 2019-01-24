@@ -5,6 +5,12 @@ import numpy as np
 from tqdm import tqdm
 pd.options.mode.chained_assignment = None 
 
+class Drug(object):
+    def __init__(self, name, ndc, rxcui):
+        self.name = name
+        self.ndc = ndc
+        self.rxcui = rxcui
+
 
 def get_rxcui(ndc_code):
     """Gets RxCui for a given NDC."""
@@ -45,21 +51,27 @@ def get_atc_class_from_rxcui(rxcui):
         pass
     return list(set(atc_class_id)), list(set(atc_class_name))
 
-def get_mesh_class_from_drug_name(drug_name):
+def get_mesh_class_from_drug_name(drug_name, as_df=False):
     drug_name = drug_name.strip()
     drug_name = drug_name.replace(' ', '+')
-    rxclass_list = []
+    mesh_terms = []
+    mesh_id = []
     try:
         r = requests.get(f"https://rxnav.nlm.nih.gov/REST/rxclass/class/byDrugName.json?drugName={drug_name}&relaSource=MESH")
         response = r.json()
         all_concepts = response['rxclassDrugInfoList']['rxclassDrugInfo']
         for i in all_concepts:
-            rxclass_list.append(i['rxclassMinConceptItem']['className'])
+            mesh_id.append(i['rxclassMinConceptItem']['classId'])
+            mesh_terms.append(i['rxclassMinConceptItem']['className'])
     except:
         pass
-    return list(set(rxclass_list))
+    output = list(set(mesh_terms))
+    if as_df:
+        output = pd.DataFrame({'mesh_id': mesh_id, 'mesh_term':mesh_terms})
+        output = output.drop_duplicates()
+    return output
 
-def get_atc_info_from_drug_name(drug_name):
+def get_atc_info_from_drug_name(drug_name, as_df=True):
     drug_name = drug_name.strip()
     drug_name = drug_name.replace(' ', '+')
     atc_class_id = []
@@ -73,4 +85,8 @@ def get_atc_info_from_drug_name(drug_name):
             atc_class_id.append(i['rxclassMinConceptItem']['classId'])
     except Exception:
         pass
-    return list(set(atc_class_id)), list(set(atc_class_name))
+    output = list(set(atc_class_id))
+    if as_df:
+        output = pd.DataFrame({'atc_id': atc_class_id, 'description': atc_class_name})
+        output = output.drop_duplicates()
+    return output
