@@ -3,10 +3,8 @@ Drugs
 
 Standardization
 ---------------
-- most drugs have two names: a generic name, and brand name
-    - e.g., Warfarin and Coumadin
-- NDC
-- RxCUI
+
+# TODO
 
 Classification
 --------------
