@@ -3,6 +3,6 @@ Diagnoses
 =========
 """
 
-from .comorbidities import elixhauser, charlson
+from .comorbidities import elixhauser, charlson, comorbidities
 
-__all__ = ['elixhauser', 'charlson']
+__all__ = ['elixhauser', 'charlson', 'comorbidities']

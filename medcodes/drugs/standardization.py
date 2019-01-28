@@ -5,11 +5,155 @@ import numpy as np
 from tqdm import tqdm
 pd.options.mode.chained_assignment = None 
 
+
 class Drug(object):
-    def __init__(self, name, ndc, rxcui):
-        self.name = name
-        self.ndc = ndc
-        self.rxcui = rxcui
+    """
+    Drug Information
+    ================
+
+    Parameters
+    ----------
+    drug_id : str
+        drug name
+    id_type : str
+        Can be one of: 'name','ndc','rxcui','smiles','iupac'
+
+
+    Attributes
+    ----------
+    generic_name : str
+        generic name of drug (e.g., clopidogrel)
+    brand_name : str
+        brand name of drug  (e.g., plavix)
+    pharm_class : list of str
+        pharmacological classes of the drug. Can be PE (physiological), MOA (mechanism of action),
+        or CS (chemical structure)
+    route : list of str
+        possible routes of administration
+    ndc : int
+        National Drug Code (NDC) identifier
+    rxcui : str
+        RxCui identifier
+    """
+    def __init__(self, drug_id, id_type):
+        self.drug_id = drug_id
+        self.id_type = id_type
+        self.smiles = None
+        self.iupac = None
+        self.rxcui = None
+        self.cid = None
+
+    def get_smiles(self):
+        if self.id_type == 'smiles':
+            self.smiles = self.drug_id
+        else:
+            r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{self.id_type}/{self.drug_id}/json")
+            response = r.json()
+            data = response['PC_Compounds'][0]
+            cid = data['id']['id']['cid']
+            for i in data['props']:
+                if (i['urn']['label'] == 'SMILES') and (i['urn']['name'] == 'Canonical'):
+                    self.smiles = i['value']['sval']
+
+    def get_iupac(self):
+        if self.id_type == 'iupac':
+            self.iupac = self.drug_id
+        else:
+            if self.id_type in ['smiles', 'name', 'cid']:
+                r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{self.id_type}/{self.drug_id}/json")
+                response = r.json()
+                smiles = None
+                if len(response['PC_Compounds'] == 1):
+                    data = response['PC_Compounds'][0]
+                    cid = data['id']['id']['cid']
+                    for i in data['props']:
+                        if (i['urn']['label'] == 'IUPAC Name') and (i['urn']['name'] == 'Preferred'):
+                            iupac = i['value']['sval']
+
+    def describe(self):
+        if self.id_type == 'smiles':
+            r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/{drug_id}/json")
+            response = r.json()
+            iupac = None
+            if len(response['PC_Compounds'] == 1):
+                data = response['PC_Compounds'][0]
+                cid = data['id']['id']['cid']
+                for i in data['props']:
+                    if (i['urn']['label'] == 'IUPAC Name') and (i['urn']['name'] == 'Preferred'):
+                        iupac = i['value']['sval']
+        if self.id_type == 'cid':
+            r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{drug_id}/json")
+            response = r.json()
+            smiles = None
+            if len(response['PC_Compounds'] == 1):
+                for i in data['props']:
+                    if i['urn']['label'] == 'IUPAC Name':
+                        iupac.append(i['value']['sval'])
+                    if (i['urn']['label'] == 'SMILES') and (i['urn']['name'] == 'Canonical'):
+                        smiles.append(i['value']['sval'])
+
+        if smiles:
+            r = response.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/{smiles}/json")
+
+
+        r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{self.name}")
+        response = r.json()
+        
+        for i in response['results']:
+            generic_name = i['generic_name']
+            brand_name = i['brand_name']
+            # pharm_class_moa = i['openfda']['pharm_class_moa']
+            # pharm_class_cs = i['openfda']['pharm_class_cs']
+            # pharm_class_pe = i['openfda']['pharm_class_pe']
+            # pharm_class_epc = i['openfda']['pharm_class_epc']
+            pharm_class = i['pharm_class']
+            route = i['route']
+            self.ndc = i['product_ndc']
+        
+        print(f"Generic name: {generic_name}")
+        print(f"Brand name: {brand_name}")
+        print(f"Routes of administration: {route}")
+        # print(f"Mechanisms of action: {pharm_class_moa}")
+        # print(f"Chemical structure: {pharm_class_cs}")
+        # print(f"Physiological effect: {pharm_class_pe}")
+        # print(f"EPC (Established Pharmocologic Class): {pharm_class_epc}")
+        print(f"Pharmacologic Classes: {pharm_class}")
+        print(f"NDC code: {self.ndc}")
+
+
+    def get_atc(self):
+        atc_class_id = []
+        atc_class_name = []
+        try:
+            if self.rxcui:
+                r = requests.get(f"https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui={self.rxcui}&relaSource=ATC")
+            else:
+                r = requests.get(f"https://rxnav.nlm.nih.gov/REST/rxclass/class/byDrugName.json?drugName={self.name}&relaSource=ATC")
+                response = r.json()
+                concept_groups = response['rxclassDrugInfoList']['rxclassDrugInfo']
+                for i in concept_groups:
+                    atc_class_name.append(i['rxclassMinConceptItem']['className'])
+                    atc_class_id.append(i['rxclassMinConceptItem']['classId'])
+        except Exception:
+            pass
+        return list(set(atc_class_id)), list(set(atc_class_name))
+
+    def get_mesh(self):
+        rxclass_list = []
+        try:
+            if self.rxcui:
+                r = requests.get(f"https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui={self.rxcui}&relaSource=MESH")
+            else:
+                r = requests.get(f"https://rxnav.nlm.nih.gov/REST/rxclass/class/byDrugName.json?drugName={self.name}&relaSource=MESH")
+            response = r.json()
+            all_concepts = response['rxclassDrugInfoList']['rxclassDrugInfo']
+            for i in all_concepts:
+                rxclass_list.append(i['rxclassMinConceptItem']['className'])
+        except Exception:
+            pass
+        return list(set(rxclass_list))
+
+
 
 
 def get_rxcui(ndc_code):
