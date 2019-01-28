@@ -36,6 +36,10 @@ class Drug(object):
         RxCui identifier
     """
     def __init__(self, drug_id, id_type):
+        if id_type not in ['name', 'ndc', 'smiles']:
+            raise ValueError("id_type must be one of: 'name', 'smiles', 'ndc'")
+        if not isinstance(drug_id, str):
+            raise TypeError("drug_id must be a string")
         self.drug_id = drug_id
         self.id_type = id_type
         self.smiles = None
@@ -43,7 +47,16 @@ class Drug(object):
         self.rxcui = None
         self.cid = None
 
-    def get_smiles(self):
+    def get_smiles(self, canonical=True):
+        """
+        Gets SMILES for drug of interest. 
+
+        Parameters
+        ----------
+        canonical : bool
+            Detemrines whether to get canonical or isomeric SMILES. Default is set to True.
+            If False, retrieves isomeric SMILES.
+        """
         if self.id_type == 'smiles':
             self.smiles = self.drug_id
         else:
@@ -51,51 +64,30 @@ class Drug(object):
             response = r.json()
             data = response['PC_Compounds'][0]
             cid = data['id']['id']['cid']
+            smiles_type = 'Canonical'
+            if not canonical:
+                smiles_type = 'Isomeric'
             for i in data['props']:
-                if (i['urn']['label'] == 'SMILES') and (i['urn']['name'] == 'Canonical'):
+                if (i['urn']['label'] == 'SMILES') and (i['urn']['name'] == smiles_type):
                     self.smiles = i['value']['sval']
+        return self.smiles
 
     def get_iupac(self):
         if self.id_type == 'iupac':
             self.iupac = self.drug_id
         else:
-            if self.id_type in ['smiles', 'name', 'cid']:
-                r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{self.id_type}/{self.drug_id}/json")
-                response = r.json()
-                smiles = None
-                if len(response['PC_Compounds'] == 1):
-                    data = response['PC_Compounds'][0]
-                    cid = data['id']['id']['cid']
-                    for i in data['props']:
-                        if (i['urn']['label'] == 'IUPAC Name') and (i['urn']['name'] == 'Preferred'):
-                            iupac = i['value']['sval']
-
-    def describe(self):
-        if self.id_type == 'smiles':
-            r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/{drug_id}/json")
+            r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{self.id_type}/{self.drug_id}/json")
             response = r.json()
-            iupac = None
+            smiles = None
             if len(response['PC_Compounds'] == 1):
                 data = response['PC_Compounds'][0]
                 cid = data['id']['id']['cid']
                 for i in data['props']:
                     if (i['urn']['label'] == 'IUPAC Name') and (i['urn']['name'] == 'Preferred'):
-                        iupac = i['value']['sval']
-        if self.id_type == 'cid':
-            r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{drug_id}/json")
-            response = r.json()
-            smiles = None
-            if len(response['PC_Compounds'] == 1):
-                for i in data['props']:
-                    if i['urn']['label'] == 'IUPAC Name':
-                        iupac.append(i['value']['sval'])
-                    if (i['urn']['label'] == 'SMILES') and (i['urn']['name'] == 'Canonical'):
-                        smiles.append(i['value']['sval'])
+                        self.iupac = i['value']['sval']
+        return self.iupac
 
-        if smiles:
-            r = response.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/{smiles}/json")
-
-
+    def describe(self):
         r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{self.name}")
         response = r.json()
         
