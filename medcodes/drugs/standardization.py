@@ -66,7 +66,7 @@ class Drug(object):
             self.inchikey = drug_id
 
 
-    def smiles(self, canonical=True):
+    def get_smiles(self, canonical=True):
         """
         Gets SMILES for drug of interest. 
 
@@ -89,7 +89,7 @@ class Drug(object):
             self.smiles = data[f'{smiles_type}']
         return self.smiles
 
-    def iupac(self):
+    def get_iupac(self):
         """Get IUPAC name for drug of interest. Uses PubChem API."""
         if self.id_type == 'iupac':
             self.iupac = self.drug_id
@@ -101,7 +101,7 @@ class Drug(object):
             self.iupac = data['IUPACName']
         return self.iupac
 
-    def inchikey(self):
+    def get_inchikey(self):
         """Gets InChiKey for the drug of interest. Uses PubChem API."""
         if not self.inchikey:
             _pubchem_id_type_checker(self.id_type)
@@ -113,8 +113,8 @@ class Drug(object):
 
     def describe(self):
         """Provides descriptive sumamry of drug of interest."""
-        if self.id_type is not 'name':
-            raise ValueError("Sorry! This method only works for drug names.")
+        if not self.name:
+            raise ValueError("Sorry! id_type must be 'name'")
         r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{self.drug_id}")
         response = r.json()
         data = response['results'][0]
@@ -134,35 +134,33 @@ class Drug(object):
         print(f"NDC: {self.ndc}")
         print(f"Product type: {self.product_type}")
 
-
-    def pharm_class(self, as_df=True):
-        if self.id_type is not 'name':
+    def get_pharm_class(self, as_df=True):
+        if not self.name:
             raise ValueError("Sorry! id_type must be 'name'")
-        self.pharm_class = get_pharm_class()
+        self.pharm_class = get_pharm_class(self.name, as_df=False)
+        print(f"There are {len(self.pharm_class)} pharmacologic classes.")
         return get_pharm_class(self.drug_id, as_df=as_df)
 
-    def atc(self, as_df=True):
+    def get_atc(self, as_df=True):
         return get_atc(self.drug_id, self.id_type, as_df=as_df)
 
-    def mesh(self, as_df=True):
+    def get_mesh(self, as_df=True):
         return get_mesh(self.drug_id, self.id_type, as_df=as_df)
 
 def get_pharm_class(drug_name, as_df=True):
     """Gets pharmacological classes of a drug using FDA API. Returns dataframe."""
     pharm_class = []
-    try:
-        r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{drug_name}")
-        response = r.json()
-        data = response['results'][0]
-        if 'pharm_class' in data:
-            pharm_class += data['pharm_class']
-        terms = ['moa', 'cs', 'pe', 'epc']
-        for t in terms:
-            try:
-                pharm_class += data['openfda'][f'pharm_class_{t}']
-            except:
-                pass
-    print(f"There are {len(pharm_class)} pharmacological classes.")
+    r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{drug_name}")
+    response = r.json()
+    data = response['results'][0]
+    if 'pharm_class' in data:
+        pharm_class += data['pharm_class']
+    terms = ['moa', 'cs', 'pe', 'epc']
+    for t in terms:
+        try:
+            pharm_class += data['openfda'][f'pharm_class_{t}']
+        except:
+            pass
     output = pharm_class
     if as_df:
         class_names = []
@@ -226,7 +224,7 @@ def get_atc(drug_id, id_type, as_df=True):
 def get_rxcui(drug_id, id_type):
     """Gets RxCUI for a given drug."""
     if id_type not in ['name', 'ndc']:
-        raise ValueError("Sorry! id_type must be either name or ndc")
+        raise ValueError("Sorry! id_type must be either 'name' or 'ndc'")
     rxcui = []
     try:
         path = 'https://rxnav.nlm.nih.gov/REST/rxcui.json'
