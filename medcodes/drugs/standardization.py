@@ -65,6 +65,8 @@ class Drug(object):
         if id_type == 'inchikey':
             self.inchikey = drug_id
 
+        if self.name:
+            _drug_name_validator(self.name)
 
     def get_smiles(self, canonical=True):
         """
@@ -238,7 +240,7 @@ def get_rxcui(drug_id, id_type):
         pass
     return rxcui
 
-def spelling_suggestions(drug_name):
+def _spelling_suggestions(drug_name):
     r = requests.get(f"https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name={drug_name}")
     response = r.json()
     suggestions = response['suggestionGroup']['suggestionList']['suggestion']
@@ -254,3 +256,24 @@ def _parse_pharm_class(text):
 def _pubchem_id_type_checker(id_type):
     if id_type not in ['name', 'iupac', 'cid', 'inchikey', 'smiles']:
         raise ValueError("id_type must be one of 'name', 'iupac', 'cid', 'inchikey', 'smiles'")
+
+def _drug_name_validator(drug_name):
+    fda_fail = False
+    pubchem_fail = False
+
+    r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{drug_name}")
+    response = r.json()
+    if 'error' in response:
+        fda_fail = True
+    
+    r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{drug_name}/property/json")
+    response = r.json()
+    if 'Fault' in response:
+        pubchem_fail = True
+    
+    if fda_fail and pubchem_fail:
+        suggestions = _spelling_suggestions(drug_name)
+        raise ValueError(f"Drug name not found. Here are some suggestions: {suggestions}")
+
+
+    
