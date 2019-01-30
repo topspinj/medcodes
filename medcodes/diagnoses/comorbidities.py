@@ -131,6 +131,11 @@ def custom_comorbidities(icd_code, icd_version, custom_map):
     custom_map : dict
         A customized mapper that defines one group of 
         multiple groups of ICD codes.
+    
+    Returns
+    -------
+    list
+        Custom comorbidities for the ICD code of interest.
 
     Note
     ----
@@ -157,13 +162,21 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
     Parameters
     ----------
     icd_codes : list
+        List of ICD codes
     icd_version : int
+        Version of ICD codes. Can be either 9 or 10. 
+        Note that version 9 refers to ICD-9CM.
     mapping : str
+        Type of comorbiditiy mapping. Can be one of 'elixhauser', 
+        'charlson', 'custom'. If custom mapping is desired, the mapper must
+        be specified in `custom_map`.
     custom_map : dict
+        Custom mapper dictionary. Used when mapping is set to 'custom'.
 
     Returns
     -------
     pd.DataFrame
+        Dataframe with columns `icd_code`, `description`, `comorbidity`.
     
     Note
     ----
@@ -177,6 +190,10 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
     """
     if mapping not in ['elixhauser', 'charlson', 'custom']:
         raise ValueError("mappign must be one of 'elixhauser', 'charlson', 'custom'")
+
+    if custom_map:
+        if not isinstance(custom_map, dict):
+            raise TypeError("custom_map must be a dictionary")
 
     all_comorbidities = []
     descriptions = []
