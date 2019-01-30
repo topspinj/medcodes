@@ -22,8 +22,3 @@ def test_wrong_type_input_error():
     msg = "ATC code must be a string."
     with pytest.raises(ValueError):
         atc_classification(['1', 2, '3'])
-
-def test_wrong_len_input_error():
-    msg = "ATC code must be a string of 7 characters."
-    with pytest.raises(ValueError):
-        atc_classification('V02')
