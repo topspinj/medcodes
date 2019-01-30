@@ -58,18 +58,23 @@ def test_get_atc_output():
 # Drug()
 #######################################
 
-def test_drug_output():
-    d = Drug(drug_id='aspirin', id_type='name')
+d = Drug(drug_id='aspirin', id_type='name')
+
+def test_drug_get_smiles():
     output = d.get_smiles()
     assert(isinstance(output, str))
 
+def test_drug_get_inchikey():
     output = d.get_inchikey()
     assert(isinstance(output, str))
 
+def test_drug_describe():
     d.describe()
     assert(isinstance(d.brand_name, str))
     assert(isinstance(d.generic_name, str))
     assert(isinstance(d.active_ingredients, list))
+    assert('ASPIRIN' in d.active_ingredients)
+    assert(isinstance(d.pharm_class, list))
 
 def test_drug_wrong_input():
     with pytest.raises(ValueError):
