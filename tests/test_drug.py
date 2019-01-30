@@ -69,7 +69,7 @@ def test_drug_output():
     d.describe()
     assert(isinstance(d.brand_name, str))
     assert(isinstance(d.generic_name, str))
-    assert(isinstance(d.active_ingredients, str))
+    assert(isinstance(d.active_ingredients, list))
 
 def test_drug_wrong_input():
     with pytest.raises(ValueError):
