@@ -7,8 +7,8 @@ pd.options.mode.chained_assignment = None
 
 class Drug(object):
     """
-    Drug Information
-    ================
+    Base Class for Drug Object
+    ==========================
 
     Parameters
     ----------
@@ -150,7 +150,20 @@ class Drug(object):
         return get_mesh(self.drug_id, self.id_type, as_df=as_df)
 
 def get_pharm_class(drug_name, as_df=True):
-    """Gets pharmacological classes of a drug using FDA API. Returns dataframe."""
+    """
+    Gets pharmacological classes of a drug using FDA API.
+    
+    Parameters
+    ----------
+    drug_name : str
+        brand or generic name of drug
+    as_df : bool
+        determines output of function
+
+    Returns
+    -------
+    pd.DataFrame or list    
+    """
     pharm_class = []
     r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{drug_name}")
     response = r.json()
@@ -175,6 +188,19 @@ def get_pharm_class(drug_name, as_df=True):
     return output
 
 def get_mesh(drug_id, id_type, as_df=True):
+    """
+    Gets MeSH terms for a given drug.
+
+    Parameters
+    ----------
+    drug_id : str
+    id_type : str
+    as_df : bool
+
+    Returns
+    -------
+    pd.DataFrame or list
+    """
     if id_type not in ['name', 'rxcui']:
         raise ValueError("Sorry! This method only works for drug names.")
     mesh_terms = []
@@ -200,6 +226,26 @@ def get_mesh(drug_id, id_type, as_df=True):
     return output
 
 def get_atc(drug_id, id_type, as_df=True):
+    """
+    Gets ATC id's for a given drug.
+
+    Parameters
+    ----------
+    drug_id : str
+        drug id
+    id_type : str
+        type of id. Can be either rxcui or name.
+    as_df : bool
+        determines output of function. If True, outputs a dataframe.
+        Default is set to True.
+
+    Returns
+    -------
+    pd.DataFrame or list
+    """
+    if id_type not in ['rxcui', 'name']:
+        raise ValueError("id_type must be either rxcui or name")
+
     atc_class_id = []
     atc_class_name = []
     try:
@@ -224,10 +270,22 @@ def get_atc(drug_id, id_type, as_df=True):
 
 
 def get_rxcui(drug_id, id_type):
-    """Gets RxCUI for a given drug."""
+    """
+    Gets RxCUI for a given drug.
+    
+    Parameters
+    ----------
+    drug_id : str
+
+    id_type : str
+        type of id. Can be either rxcui or name.
+
+    Returns
+    -------
+    str    
+    """
     if id_type not in ['name', 'ndc']:
         raise ValueError("Sorry! id_type must be either 'name' or 'ndc'")
-    rxcui = []
     try:
         path = 'https://rxnav.nlm.nih.gov/REST/rxcui.json'
         if id_type == 'name':
@@ -235,12 +293,22 @@ def get_rxcui(drug_id, id_type):
         if id_type == 'ndc':
             r = requests.get(path + f"?idtype=NDC&id={drug_id}")
         response = r.json()
-        rxcui = response['idGroup']['rxnormId']
+        rxcui_list = response['idGroup']['rxnormId']
+        if len(rxcui_list) > 1:
+            print(f"There is more than one RxCUI for drug {id_type} {drug_id}")
+            rxcui = rxcui_list
+        if len(rxcui_list) == 1:
+            rxcui = rxcui_list[0]
     except Exception:
         pass
     return rxcui
 
-def _spelling_suggestions(drug_name):
+def spelling_suggestions(drug_name):
+    """
+    Provides list of spelling suggestions for a given drug name. Uses the RxNorm API.
+    """
+    if not isinstance(drug_name, str):
+        raise TypeError("drug_name must be a string.")
     r = requests.get(f"https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name={drug_name}")
     response = r.json()
     suggestions = response['suggestionGroup']['suggestionList']['suggestion']
@@ -258,22 +326,24 @@ def _pubchem_id_type_checker(id_type):
         raise ValueError("id_type must be one of 'name', 'iupac', 'cid', 'inchikey', 'smiles'")
 
 def _drug_name_validator(drug_name):
-    fda_fail = False
-    pubchem_fail = False
+    fda_fail = _test_fda_api(drug_name)
+    pubchem_fail = _test_pubchem_api(drug_name)
+    if fda_fail and pubchem_fail:
+        suggestions = spelling_suggestions(drug_name)
+        raise ValueError(f"Drug name not found. Here are some suggestions: {suggestions}")
 
+def _test_fda_api(drug_name):
+    api_fail = False
     r = requests.get(f"https://api.fda.gov/drug/ndc.json?search=brand_name:{drug_name}")
     response = r.json()
     if 'error' in response:
         fda_fail = True
-    
+    return api_fail
+
+def _test_pubchem_api(drug_name):
+    api_fail = False
     r = requests.get(f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{drug_name}/property/json")
     response = r.json()
     if 'Fault' in response:
-        pubchem_fail = True
-    
-    if fda_fail and pubchem_fail:
-        suggestions = _spelling_suggestions(drug_name)
-        raise ValueError(f"Drug name not found. Here are some suggestions: {suggestions}")
-
-
-    
+        api_fail = True
+    return api_fail
