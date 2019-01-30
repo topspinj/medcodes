@@ -178,6 +178,10 @@ def comorbidities(icd_codes, icd_version=9, mapping='elixhauser', custom_map=Non
     if mapping not in ['elixhauser', 'charlson', 'custom']:
         raise ValueError("mappign must be one of 'elixhauser', 'charlson', 'custom'")
 
+    if custom_map:
+        if not isinstance(custom_map, dict):
+            raise TypeError("custom_map must be a dictionary")
+
     all_comorbidities = []
     descriptions = []
     for icd_code in icd_codes:
