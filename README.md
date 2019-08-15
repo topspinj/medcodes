@@ -91,7 +91,45 @@ WIP.
 
 `International Statistical Classification of Diseases`, also known as ICD, is a classification system used for patient diagnosis. ICD-9 contains 13,000 codes, while ICD-10 has 68,000 codes. At the end of a patient's hospital stay, a list of ICD codes are assigned to that particular hospital admission, which ultimately gets used for reimbursement purposes.  
 
-Comorbidity measures, such as the Charlson comorbidity index and Elixhauser score, are used to cluster the overwhelming number of ICD codes into a smaller subset of well-defined comorbidities. These tools have used in the context of clinical prognosis and comorbidity adjustment in epidemiological outcome studies ([3](https://www.ncbi.nlm.nih.gov/pubmed/15528055), [4](https://www.ncbi.nlm.nih.gov/pubmed/21305268), [5](https://www.ncbi.nlm.nih.gov/pubmed/21509773)). The Charlson comorbidity index covers 17 comorbidities, while the Elixhauser score covers 30. There are 6 overlapping comorbidities between Charlson and Elixhauser comorbidity mappings:
+Comorbidity measures, such as the Charlson comorbidity index and Elixhauser score, are used to cluster the overwhelming number of ICD codes into a smaller subset of well-defined comorbidities. These tools have been used in the context of clinical prognosis and comorbidity adjustment in epidemiological outcome studies ([3](https://www.ncbi.nlm.nih.gov/pubmed/15528055), [4](https://www.ncbi.nlm.nih.gov/pubmed/21305268), [5](https://www.ncbi.nlm.nih.gov/pubmed/21509773)). The Charlson comorbidity index covers 17 comorbidities, while the Elixhauser score covers 30. A complete list of Charlson and Elixhauser comorbidity categories can be found in the table below:
+
+|Charlson|Elixhauser|
+|----------|---------|
+|myocardial infarction	|cardiac arrythmias|
+|congestive heart failure	|congestive heart failure|
+|peripheral vascular disease	|valvular disease|
+|cerebrovascular disease	|pulmonary circulation disorders|
+|dementia	|peripheral vascular disorders|
+|chronic pulmonary disease	|hypertension (uncomplicated)|
+|rheumatic disease	|hypertension (complicated)|
+|peptic ulcer disease	|paralysis|
+|mild liver disease	|other neurological disorders|
+|diabetes without chronic complication	|chronic pulmonary disease|
+|diabetes with chronic complication	|diabetes (uncomplicated)|
+|hemiplegia/paraplegia	|diabetes (complicated)|
+|renal disease	|hypothyroidism|
+|any malignancy	|renal failure|
+|moderate/severe liver disease	|liver disease|
+|metastatic solid tumor	|peptic ulcer disease|
+|AIDS/HIV	|AIDS/HIV|
+|	|lymphoma|
+|	|metastatic cancer|
+|	|solid tutor without metastasis|
+|	|rheumatoid arthritis|
+|	|coagulopathy|
+|	|obesity|
+|	|weight loss|
+|	|fluid and electrolyte disorders|
+|	|blood loss anemia|
+|	|deficiency anemia|
+|	|alcohol abuse|
+|	|drug abuse|
+|	|psychoses|
+|	|depression| 
+
+
+
+There are 6 overlapping comorbidities between Charlson and Elixhauser comorbidity mappings:
 
 1. congestive heart failure
 2. peripheral vascular disease
@@ -100,7 +138,7 @@ Comorbidity measures, such as the Charlson comorbidity index and Elixhauser scor
 5. HIV/AIDS
 6. metastatic solid tumors
 
-An example of a Charlson/Elixhauser comorbidty is `congestive heart failure`, which covers the following ICD codes:  
+An example of a Charlson/Elixhauser comorbidty is `congestive heart failure`, which includes the following ICD codes:  
 
 - **428.0:** Congestive heart failure, unspecified
 - **428.1:** Left heart failure
@@ -124,6 +162,7 @@ Outputs:
 |----|----|-----|
 |4280|Congestive heart failure, unspecified|congestive heart failure|
 |4284|Combined systolic and diastolic heart failure|congestive heart failure|
+
 
 ### References
 
